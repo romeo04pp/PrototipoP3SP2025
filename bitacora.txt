@@ -1,0 +1,41 @@
+commit c0f63731618d3b88d4eaf329627870e4bda63465
+Author: Pablo Palencia <ppalenciar1@miumg.edu.gt>
+Date:   Fri Apr 11 09:35:34 2025 -0600
+
+    sistema terminado
+
+commit 87a3c87e23123c0bcfc1abc619b11165f2d202c9
+Author: Pablo Palencia <ppalenciar1@miumg.edu.gt>
+Date:   Fri Apr 11 09:27:01 2025 -0600
+
+    terminando mantenimientos
+
+commit 2f60d3a4ec3f089c887ec57ce5e61a22f6d3a28d
+Author: Pablo Palencia <ppalenciar1@miumg.edu.gt>
+Date:   Fri Apr 11 09:17:07 2025 -0600
+
+    Terminando Dao
+
+commit cd4c368d3824e78ac0eb4171af2e382a02ecc884
+Author: Pablo Palencia <ppalenciar1@miumg.edu.gt>
+Date:   Fri Apr 11 08:56:12 2025 -0600
+
+    Creando .java
+
+commit 6fc7cb5826b08f7d5caea88725056cd264d60656
+Author: Pablo Palencia <ppalenciar1@miumg.edu.gt>
+Date:   Fri Apr 11 08:48:38 2025 -0600
+
+    Creando dao y .java
+
+commit 5eaca06971d78e7df77ff01d4ecd49c3b6d35175
+Author: Pablo Palencia <ppalenciar1@miumg.edu.gt>
+Date:   Fri Apr 11 08:44:03 2025 -0600
+
+    Iniciando sistema
+
+commit fba3c1e8a16a284774a04442e37f5b23455b9b64
+Author: Pablo <156860497+romeo04pp@users.noreply.github.com>
+Date:   Fri Apr 11 08:23:35 2025 -0600
+
+    Initial commit

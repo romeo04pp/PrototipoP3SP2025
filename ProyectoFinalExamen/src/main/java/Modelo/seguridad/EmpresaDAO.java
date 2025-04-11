@@ -21,7 +21,7 @@ import java.util.List;
 public class EmpresaDAO {
 
     private static final String SQL_SELECT = "SELECT idEmpresa, nit, nombre, direccion, telefono, estatus FROM empresa";
-    private static final String SQL_INSERT = "INSERT INTO empresa(nit, nombre, direccion, telefono, estatus) VALUES(?, ?, ?, ?, ?)";
+    private static final String SQL_INSERT = "INSERT INTO empresa(idEmpresa, nit, nombre, direccion, telefono, estatus) VALUES(?, ?, ?, ?, ?, ?)";
     private static final String SQL_UPDATE = "UPDATE empresa SET nit=?, nombre=?, direccion=?, telefono=?, estatus=? WHERE idEmpresa = ?"; //comodines son los =?
     private static final String SQL_DELETE = "DELETE FROM empresa WHERE idEmpresa=?";
     private static final String SQL_QUERY = "SELECT idEmpresa, nit, nombre, direccion, telefono, estatus FROM empresa WHERE idEmpresa = ?";
@@ -38,7 +38,7 @@ public class EmpresaDAO {
             stmt = conn.prepareStatement(SQL_SELECT);
             rs = stmt.executeQuery();
             while (rs.next()) {
-                String idEmpresa = rs.getString("edEmpresa");
+                String idEmpresa = rs.getString("idEmpresa");
                 String nit = rs.getString("nit");
                 String nombre = rs.getString("nombre");
                 String direccion = rs.getString("direccion");
