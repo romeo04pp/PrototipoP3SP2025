@@ -13,6 +13,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import vista.seguridad.MantenimientoUsuario;
+import vista.seguridad.MantenimientoEmpresa;
 import vista.seguridad.MantenimientoPerfiles;
 import vista.seguridad.MantenimientoAplicacion;
 import vista.seguridad.MantenimientoBitacora;
@@ -209,6 +210,11 @@ public class MdiGeneral extends javax.swing.JFrame {
         jMenu7.setText("Mantenimientos");
 
         jMenuItem5.setText("Empresas");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         jMenu7.add(jMenuItem5);
 
         jMenu6.add(jMenu7);
@@ -368,6 +374,16 @@ for (javax.swing.JInternalFrame frame : jDesktopPane1.getAllFrames()) {
                         System.exit(0);
                     }
     }//GEN-LAST:event_salirSistemaActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        // TODO add your handling code here:
+        MantenimientoEmpresa ventana = new MantenimientoEmpresa();
+        jDesktopPane1.add(ventana);
+        Dimension desktopSize = jDesktopPane1.getSize();
+        Dimension FrameSize = ventana.getSize();
+        ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+    
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     /**
      * @param args the command line arguments
