@@ -5,7 +5,7 @@
  */
 package Modelo.seguridad;
 
-import domain.Alumno; 
+import Controlador.seguridad.Empresa; 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,38 +19,39 @@ import java.util.List;
  */
 public class EmpresaDAO {
 
-    private static final String SQL_SELECT = "SELECT carnet_alumno, nombre_alumno, direccion_alumno, telefono_alumno, email_alumno, estatus_alumno FROM alumnos";
-    private static final String SQL_INSERT = "INSERT INTO alumnos(nombre_alumno, direccion_alumno, telefono_alumno, email_alumno, estatus_alumno) VALUES(?, ?, ?, ?, ?)";
-    private static final String SQL_UPDATE = "UPDATE alumnos SET nombre_alumno=?, direccion_alumno=?, telefono_alumno=?, email_alumno=?, estatus_alumno=? WHERE carnet_alumno = ?"; //comodines son los =?
-    private static final String SQL_DELETE = "DELETE FROM alumnos WHERE carnet_alumno=?";
-    private static final String SQL_QUERY = "SELECT carnet_alumno, nombre_alumno, direccion_alumno, telefono_alumno, email_alumno, estatus_alumno FROM alumnos WHERE carnet_alumno = ?";
+    private static final String SQL_SELECT = "SELECT idEmpresa, nit, nombre, direccion, telefono, estatus FROM empresa";
+    private static final String SQL_INSERT = "INSERT INTO empresa(nit, nombre, direccion, telefono, estatus) VALUES(?, ?, ?, ?, ?)";
+    private static final String SQL_UPDATE = "UPDATE empresa SET nit=?, nombre=?, direccion=?, telefono=?, estatus=? WHERE idEmpresa = ?"; //comodines son los =?
+    private static final String SQL_DELETE = "DELETE FROM empresa WHERE idEmpresa=?";
+    private static final String SQL_QUERY = "SELECT idEmpresa, nit, nombre, direccion, telefono, estatus FROM empresa WHERE idEmpresa = ?";
 
-    public List<Alumno> select() { //primer mantenimiento, va a consultar
+    public List<Empresa> select() { //primer mantenimiento, va a consultar
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        Alumno alumno = null; //vendedor = alumno, Vendedor = Alumno
-        List<Alumno> alumnos = new ArrayList<Alumno>(); //vendedores = alumnos
+        Empresa alumno = null; //vendedor = alumno, Vendedor = Alumno
+        List<Empresa> alumnos = new ArrayList<Empresa>(); //vendedores = alumnos
 
         try { //try es un if, permite condicionar y captar un error
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_SELECT);
             rs = stmt.executeQuery();
             while (rs.next()) {
-                int carnetAlumno = rs.getInt("carnet_alumno");
-                String nombreAlumno = rs.getString("nombre_alumno");
-                String direccionAlumno = rs.getString("direccion_alumno");
-                String telefonoAlumno = rs.getString("telefono_alumno");
-                String emailAlumno = rs.getString("email_alumno");
-                String estatusAlumno = rs.getString("estatus_alumno");
+                String idEmpresa = rs.getString("edEmpresa");
+                String nit = rs.getString("nit");
+                String nombre = rs.getString("nombre");
+                String direccion = rs.getString("direccion");
+                String telefono = rs.getString("telefono");
+                String estatus = rs.getString("estatus");
                 
-                alumno = new Alumno();
-                alumno.setCarnet_alumno(carnetAlumno);
-                alumno.setNombre_alumno(nombreAlumno);
-                alumno.setDireccion_alumno(direccionAlumno);
-                alumno.setTelefono_alumno(telefonoAlumno);
-                alumno.setEmail_alumno(emailAlumno);
-                alumno.setEstatus_alumno(estatusAlumno);
+                alumno = new Empresa();
+                alumno.setIdEmpresa(idEmpresa);
+                alumno.setNit(nit);
+                alumno.setNombre(nombre);
+                alumno.setDireccion(direccion);
+                alumno.setTelefono(telefono);
+                alumno.setEstatus(estatus);
+                
                 
                 alumnos.add(alumno);
             }
@@ -66,7 +67,7 @@ public class EmpresaDAO {
         return alumnos;
     }
 
-    public int insert(Alumno alumno) { //segundo metodo, permite establecer informacion
+    public int insert(Empresa alumno) { //segundo metodo, permite establecer informacion
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
@@ -74,11 +75,12 @@ public class EmpresaDAO {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_INSERT);
             //stmt.setString(1, alumno.getCarnet_alumno());
-            stmt.setString(1, alumno.getNombre_alumno());
-            stmt.setString(2, alumno.getDireccion_alumno());
-            stmt.setString(3, alumno.getTelefono_alumno());
-            stmt.setString(4, alumno.getEmail_alumno());
-            stmt.setString(5, alumno.getEstatus_alumno());
+            stmt.setString(1, alumno.getIdEmpresa());
+            stmt.setString(2, alumno.getNit());
+            stmt.setString(3, alumno.getNombre());
+            stmt.setString(4, alumno.getDireccion());
+            stmt.setString(5, alumno.getTelefono());
+            stmt.setString(6, alumno.getEstatus());
 
             System.out.println("ejecutando query: " + SQL_INSERT);
             rows = stmt.executeUpdate();
@@ -93,7 +95,7 @@ public class EmpresaDAO {
         return rows;
     }
 
-    public int update(Alumno alumno) { //tercer mantenimiento, actualiza
+    public int update(Empresa alumno) { //tercer mantenimiento, actualiza
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
@@ -103,12 +105,12 @@ public class EmpresaDAO {
             System.out.println("ejecutando query: " + SQL_UPDATE);
             stmt = conn.prepareStatement(SQL_UPDATE);
             
-            stmt.setString(1, alumno.getNombre_alumno());
-            stmt.setString(2, alumno.getDireccion_alumno());
-            stmt.setString(3, alumno.getTelefono_alumno());
-            stmt.setString(4, alumno.getEmail_alumno());
-            stmt.setString(5, alumno.getEstatus_alumno());
-            stmt.setInt(6, alumno.getCarnet_alumno());
+            stmt.setString(1, alumno.getNit());
+            stmt.setString(2, alumno.getNombre());
+            stmt.setString(3, alumno.getDireccion());
+            stmt.setString(4, alumno.getTelefono());
+            stmt.setString(5, alumno.getEstatus());
+            stmt.setString(6, alumno.getIdEmpresa());
             
             rows = stmt.executeUpdate();
             System.out.println("Registros actualizado: " + rows);
@@ -123,7 +125,7 @@ public class EmpresaDAO {
         return rows;
     }
 
-    public int delete(Alumno alumno) {//cuarto metodo, borra
+    public int delete(Empresa alumno) {//cuarto metodo, borra
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
@@ -132,7 +134,7 @@ public class EmpresaDAO {
             conn = Conexion.getConnection();
             System.out.println("Ejecutando query: " + SQL_DELETE);
             stmt = conn.prepareStatement(SQL_DELETE);
-            stmt.setInt(1, alumno.getCarnet_alumno());
+            stmt.setString(1, alumno.getIdEmpresa());
             rows = stmt.executeUpdate();
             System.out.println("Registros eliminados: " + rows);
         } catch (SQLException ex) {
@@ -146,34 +148,34 @@ public class EmpresaDAO {
     }
 
 //    public List<Persona> query(Persona vendedor) { // Si se utiliza un ArrayList
-    public Alumno query(Alumno alumno) {    //Select enfocado
+    public Empresa query(Empresa alumno) {    //Select enfocado
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        List<Alumno> alumnos = new ArrayList<Alumno>();
+        List<Empresa> alumnos = new ArrayList<Empresa>();
         int rows = 0;
 
         try {
             conn = Conexion.getConnection();
             System.out.println("Ejecutando query: " + SQL_QUERY);
             stmt = conn.prepareStatement(SQL_QUERY);
-            stmt.setInt(1, alumno.getCarnet_alumno());
+            stmt.setString(1, alumno.getIdEmpresa());
             rs = stmt.executeQuery();
             while (rs.next()) {
-                int carnetAlumno = rs.getInt("carnet_alumno");
-                String nombreAlumno = rs.getString("nombre_alumno");
-                String direccionAlumno = rs.getString("direccion_alumno");
-                String telefonoAlumno = rs.getString("telefono_alumno");
-                String emailAlumno = rs.getString("email_alumno");
-                String estatusAlumno = rs.getString("estatus_alumno");
+                String idEmpresa = rs.getString("idEmpresa");
+                String nit = rs.getString("nit");
+                String nombre = rs.getString("nombre");
+                String direccion = rs.getString("direccion");
+                String telefono = rs.getString("telefono");
+                String estatus = rs.getString("estatus");
                 
-                alumno = new Alumno();
-                alumno.setCarnet_alumno(carnetAlumno);
-                alumno.setNombre_alumno(nombreAlumno);
-                alumno.setDireccion_alumno(direccionAlumno);
-                alumno.setTelefono_alumno(telefonoAlumno);
-                alumno.setEmail_alumno(emailAlumno);
-                alumno.setEstatus_alumno(estatusAlumno);
+                alumno = new Empresa();
+                alumno.setIdEmpresa(idEmpresa);
+                alumno.setNit(nit);
+                alumno.setNombre(nombre);
+                alumno.setDireccion(direccion);
+                alumno.setTelefono(telefono);
+                alumno.setEstatus(estatus);
                 //con los set, enviamos los objetos
                 //vendedores.add(vendedor); // Si se utiliza un ArrayList
             }

@@ -11,37 +11,16 @@ package Controlador.seguridad;
  */
 public class Empresa {
 
-    public Empresa(String idEmpresa, String nit, String nombre, String direccion, String telefono, String estatus_alumno) {
-        this.idEmpresa = idEmpresa;
-        this.nit = nit;
-        this.nombre = nombre;
-        this.direccion = direccion;
-        this.telefono = telefono;
-        this.estatus_alumno = estatus_alumno;
-    }
+    String idEmpresa;
+    String nit;
+    String nombre;
+    String direccion;
+    String telefono;
+    String estatus;
 
-    public String getIdEmpresa() {
-        return idEmpresa;
-    }
-
-    public String getNit() {
-        return nit;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public String getEstatus_alumno() {
-        return estatus_alumno;
+    @Override
+    public String toString() {
+        return "Empresa{" + "idEmpresa=" + idEmpresa + ", nit=" + nit + ", nombre=" + nombre + ", direccion=" + direccion + ", telefono=" + telefono + ", estatus=" + estatus + '}';
     }
 
     public void setIdEmpresa(String idEmpresa) {
@@ -64,21 +43,42 @@ public class Empresa {
         this.telefono = telefono;
     }
 
-    public void setEstatus_alumno(String estatus_alumno) {
-        this.estatus_alumno = estatus_alumno;
+    public void setEstatus(String estatus) {
+        this.estatus = estatus;
     }
 
-    @Override
-    public String toString() {
-        return "Empresa{" + "idEmpresa=" + idEmpresa + ", nit=" + nit + ", nombre=" + nombre + ", direccion=" + direccion + ", telefono=" + telefono + ", estatus_alumno=" + estatus_alumno + '}';
+    public String getIdEmpresa() {
+        return idEmpresa;
     }
-    
-    String idEmpresa;
-    String nit;
-    String nombre;
-    String direccion;
-    String telefono;
-    String estatus_alumno;
+
+    public String getNit() {
+        return nit;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public String getEstatus() {
+        return estatus;
+    }
+
+    public Empresa(String idEmpresa, String nit, String nombre, String direccion, String telefono, String estatus) {
+        this.idEmpresa = idEmpresa;
+        this.nit = nit;
+        this.nombre = nombre;
+        this.direccion = direccion;
+        this.telefono = telefono;
+        this.estatus = estatus;
+    }
     
     public Empresa() { //sin nada, sin parametros
     }
