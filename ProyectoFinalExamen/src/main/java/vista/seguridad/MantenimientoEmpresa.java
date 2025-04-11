@@ -5,10 +5,10 @@
  */
 package vista.seguridad;
 
-import datos.EmpleadoDAO;
-import datos.AlumnoDAO;
-import domain.Empleado;
-import domain.Alumno;
+//import datos.EmpleadoDAO;
+import Modelo.seguridad.EmpresaDAO;
+//import domain.Empleado;
+import Controlador.seguridad.Empresa;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import java.io.File;
@@ -20,48 +20,49 @@ import java.io.File;
 public class MantenimientoEmpresa extends javax.swing.JInternalFrame {
 
     public void llenadoDeCombos() { //no se hace cambio
-        EmpleadoDAO empleadoDAO = new EmpleadoDAO();
-        List<Empleado> empleados = empleadoDAO.select();
+        EmpresaDAO empleadoDAO = new EmpresaDAO();
+        List<Empresa> empleados = empleadoDAO.select();
         cbox_empleado.addItem("Seleccione una opción");
         for (int i = 0; i < empleados.size(); i++) {
-            cbox_empleado.addItem(empleados.get(i).getNombreEmpleado());
+            cbox_empleado.addItem(empleados.get(i).getNombre());
         }
     }
 
     public void llenadoDeTablas() {
         DefaultTableModel modelo = new DefaultTableModel(); //estamos creando el modelo, un grid
-        modelo.addColumn("ID Alumno");
+        modelo.addColumn("ID Empresa");
+        modelo.addColumn("Nit");
         modelo.addColumn("Nombre");
         modelo.addColumn("Dirección");
         modelo.addColumn("Telefono");
-        modelo.addColumn("Email");
         modelo.addColumn("Status");
-        AlumnoDAO alumnoDAO = new AlumnoDAO();
-        List<Alumno> alumnos = alumnoDAO.select(); //vendedores=alumnos, alumno=vendedor
+        EmpresaDAO alumnoDAO = new EmpresaDAO();
+        List<Empresa> alumnos = alumnoDAO.select(); //vendedores=alumnos, alumno=vendedor
         tablaAlumnos.setModel(modelo);
         String[] dato = new String[6];
         for (int i = 0; i < alumnos.size(); i++) {
-            dato[0] = Integer.toString(alumnos.get(i).getCarnet_alumno());
-            dato[1] = alumnos.get(i).getNombre_alumno();
-            dato[2] = alumnos.get(i).getDireccion_alumno();
-            dato[3] = alumnos.get(i).getTelefono_alumno();
-            dato[4] = alumnos.get(i).getEmail_alumno();
-            dato[5] = alumnos.get(i).getEstatus_alumno();
+            dato[0] = alumnos.get(i).getIdEmpresa();
+            dato[1] = alumnos.get(i).getNit();
+            dato[2] = alumnos.get(i).getNombre();
+            dato[3] = alumnos.get(i).getDireccion();
+            dato[4] = alumnos.get(i).getTelefono();
+            
+            dato[5] = alumnos.get(i).getEstatus();
             //System.out.println("vendedor:" + vendedores);
             modelo.addRow(dato);
         }
     }
 
     public void buscarVendedor() {
-        Alumno alumnoAConsultar = new Alumno();
-        AlumnoDAO alumnoDAO = new AlumnoDAO();
-        alumnoAConsultar.setCarnet_alumno(Integer.parseInt(txtbuscado.getText()));
+        Empresa alumnoAConsultar = new Empresa();
+        EmpresaDAO alumnoDAO = new EmpresaDAO();
+        alumnoAConsultar.setIdEmpresa((txtbuscado.getText()));
         alumnoAConsultar = alumnoDAO.query(alumnoAConsultar);
-        txtNombre.setText(alumnoAConsultar.getNombre_alumno());
-        txtDireccion.setText(alumnoAConsultar.getDireccion_alumno());
-        txtTelefono.setText(alumnoAConsultar.getTelefono_alumno());
-        txtEmail.setText(alumnoAConsultar.getEmail_alumno());
-        txtEstatus.setText(alumnoAConsultar.getEstatus_alumno());
+        txtNit.setText(alumnoAConsultar.getNit());
+        txtNombre.setText(alumnoAConsultar.getNombre());
+        txtDireccion.setText(alumnoAConsultar.getDireccion());
+        txtTelefono.setText(alumnoAConsultar.getTelefono());
+        txtEstatus.setText(alumnoAConsultar.getEstatus());
     }
 
     public MantenimientoEmpresa() {
@@ -103,7 +104,7 @@ public class MantenimientoEmpresa extends javax.swing.JInternalFrame {
         label7 = new javax.swing.JLabel();
         label8 = new javax.swing.JLabel();
         txtTelefono = new javax.swing.JTextField();
-        txtEmail = new javax.swing.JTextField();
+        txtNit = new javax.swing.JTextField();
         txtEstatus = new javax.swing.JTextField();
 
         lb2.setForeground(new java.awt.Color(204, 204, 204));
@@ -211,7 +212,7 @@ public class MantenimientoEmpresa extends javax.swing.JInternalFrame {
         label6.setText("Teléfono");
 
         label7.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        label7.setText("Email");
+        label7.setText("Nit");
 
         label8.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         label8.setText("Estatus");
@@ -219,8 +220,8 @@ public class MantenimientoEmpresa extends javax.swing.JInternalFrame {
         txtTelefono.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         txtTelefono.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
 
-        txtEmail.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        txtEmail.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
+        txtNit.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        txtNit.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
 
         txtEstatus.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         txtEstatus.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(204, 204, 204)));
@@ -256,7 +257,7 @@ public class MantenimientoEmpresa extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(label7)
                                 .addGap(55, 55, 55)
-                                .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE))
+                                .addComponent(txtNit, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(label6)
                                 .addGap(35, 35, 35)
@@ -322,7 +323,7 @@ public class MantenimientoEmpresa extends javax.swing.JInternalFrame {
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(label7)
-                                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtNit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(label8)
@@ -353,21 +354,21 @@ public class MantenimientoEmpresa extends javax.swing.JInternalFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-        AlumnoDAO alumnoDAO = new AlumnoDAO();
-        Alumno alumnoAEliminar = new Alumno();
-        alumnoAEliminar.setCarnet_alumno(Integer.parseInt(txtbuscado.getText()));
+        EmpresaDAO alumnoDAO = new EmpresaDAO();
+        Empresa alumnoAEliminar = new Empresa();
+        alumnoAEliminar.setIdEmpresa((txtbuscado.getText()));
         alumnoDAO.delete(alumnoAEliminar);
         llenadoDeTablas();//refrescar la lista/grid  ya que se borro un alumno
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        AlumnoDAO alumnoDAO = new AlumnoDAO();
-        Alumno alumnoAInsertar = new Alumno();
-        alumnoAInsertar.setNombre_alumno(txtNombre.getText());
-        alumnoAInsertar.setDireccion_alumno(txtDireccion.getText());
-        alumnoAInsertar.setTelefono_alumno(txtTelefono.getText());
-        alumnoAInsertar.setEmail_alumno(txtEmail.getText());
-        alumnoAInsertar.setEstatus_alumno(txtEstatus.getText());
+        EmpresaDAO alumnoDAO = new EmpresaDAO();
+        Empresa alumnoAInsertar = new Empresa();
+        alumnoAInsertar.setNombre(txtNombre.getText());
+        alumnoAInsertar.setDireccion(txtDireccion.getText());
+        alumnoAInsertar.setTelefono(txtTelefono.getText());
+        alumnoAInsertar.setNit(txtNit.getText());
+        alumnoAInsertar.setEstatus(txtEstatus.getText());
         
         alumnoDAO.insert(alumnoAInsertar);
         llenadoDeTablas();
@@ -380,14 +381,14 @@ public class MantenimientoEmpresa extends javax.swing.JInternalFrame {
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
 //        // TODO add your handling code here:
-        AlumnoDAO alumnoDAO = new AlumnoDAO();
-        Alumno alumnoAActualizar = new Alumno();
-        alumnoAActualizar.setCarnet_alumno(Integer.parseInt(txtbuscado.getText()));
-        alumnoAActualizar.setNombre_alumno(txtNombre.getText());
-        alumnoAActualizar.setDireccion_alumno(txtDireccion.getText());
-        alumnoAActualizar.setTelefono_alumno(txtTelefono.getText());
-        alumnoAActualizar.setEmail_alumno(txtEmail.getText());
-        alumnoAActualizar.setEstatus_alumno(txtEstatus.getText());
+        EmpresaDAO alumnoDAO = new EmpresaDAO();
+        Empresa alumnoAActualizar = new Empresa();
+        alumnoAActualizar.setIdEmpresa(txtbuscado.getText());
+        alumnoAActualizar.setNombre(txtNombre.getText());
+        alumnoAActualizar.setDireccion(txtDireccion.getText());
+        alumnoAActualizar.setTelefono(txtTelefono.getText());
+        alumnoAActualizar.setNit(txtNit.getText());
+        alumnoAActualizar.setEstatus(txtEstatus.getText());
         
         alumnoDAO.update(alumnoAActualizar);
         llenadoDeTablas();
@@ -398,7 +399,7 @@ public class MantenimientoEmpresa extends javax.swing.JInternalFrame {
         txtNombre.setText("");
         txtDireccion.setText("");
         txtTelefono.setText(" ");
-        txtEmail.setText(" ");
+        txtNit.setText(" ");
         txtEstatus.setText(" ");
         txtbuscado.setText("");
         btnRegistrar.setEnabled(true);
@@ -453,8 +454,8 @@ public class MantenimientoEmpresa extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lbusu;
     private javax.swing.JTable tablaAlumnos;
     private javax.swing.JTextField txtDireccion;
-    private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtEstatus;
+    private javax.swing.JTextField txtNit;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtTelefono;
     private javax.swing.JTextField txtbuscado;
